@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/bee-nice-public/">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Be Nice — encouraging messages to brighten your day.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Be Nice">
+  <link rel="apple-touch-icon" sizes="192x192" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/Icon-192.png"/>
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/Icon-512.png"/>
+  <title>Be Nice</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    // Web Notifications API interop — called from Dart via dart:js_interop.
+    // Requests browser notification permission.
+    function requestWebNotificationPermission() {
+      if (!('Notification' in window)) return Promise.resolve('denied');
+      return Notification.requestPermission();
+    }
+
+    // Fires a browser notification with the given title and body.
+    // Falls back silently if permission is not granted.
+    function showWebNotification(title, body) {
+      if (!('Notification' in window)) return;
+      if (Notification.permission === 'granted') {
+        new Notification(title, { body: body, icon: 'icons/Icon-192.png' });
+      }
+    }
+  </script>
+</head>
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
